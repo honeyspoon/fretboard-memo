@@ -81,6 +81,9 @@ h1 {
   top: 3px;
   left: -35px;
 }
+.guitar-neck .open-notes:hover {
+  cursor: pointer;
+}
 .guitar-neck .open-notes li {
   margin-bottom: 20px;
   font-size: 18px;
@@ -171,8 +174,7 @@ h1 {
   float: left;
 }
 .guitar-neck .notes .mask ul li:hover {
-  cursor: 
-
+  cursor: pointer;
 }
 .guitar-neck .notes .mask ul li {
   float: left;

@@ -47,6 +47,7 @@ function App() {
   const [selectedNote, setSelectedNote] = useState();
   const [showNotes, setShowNotes] = useState(false);
   const [showStringNames, setShowStringNames] = useState(true);
+  const [message, setMessage] = useState("");
 
   function changeExpectedNote() {
     const newNote = randomNote();
@@ -56,11 +57,14 @@ function App() {
   useEffect(() => {
     if (selectedNote) {
       if (selectedNote === expectedNote) {
-        console.log("good");
         setSelectedNote(null);
-        changeExpectedNote();
+        setMessage("nice 👍");
+        setTimeout(() => {
+          changeExpectedNote();
+          setMessage("");
+        }, 1000);
       } else {
-        console.log("bad");
+        setMessage("bad 🙃");
       }
     }
   }, [selectedNote, expectedNote]);
@@ -71,6 +75,7 @@ function App() {
         Fretboard memo
         {<div>{expectedNote}</div>}
         {selectedNote && <div>{selectedNote}</div>}
+        {message}
         <div className="guitar-neck">
           <div className="fret first"></div>
           {new Array(Object.keys(notes).length - 1).fill(null).map((_, i) => (
