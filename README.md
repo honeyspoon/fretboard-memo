@@ -4,6 +4,7 @@ this is a game to memorize the fretboard
 
 ## features
 
+- [X] guess a note loop
 - [X] toggle show notes
 - [X] toggle show notes
 - [ ] game stats
