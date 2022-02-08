@@ -14,3 +14,4 @@ this is a game to memorize the fretboard
   - [ ] make a focused training mode with user stats
   - [ ] save progress in localstorage
 - [ ] give music theory tricks
+- [ ] make sounds whn a note is played
