@@ -24,15 +24,22 @@ const notes = {
   ],
 };
 
+// TODO: get rid of this
 function noteFromString(stringName) {
   return stringName.charAt(stringName.length - 1).toUpperCase();
 }
 
-function randomFromArray(array) {
+function randomElemFromArray(array) {
   return array[Math.floor(Math.random() * array.length)];
 }
+
+function randomKeyFromObject(object) {
+  return randomElemFromArray(Object.keys(object));
+}
+
 function randomNote() {
-  return randomFromArray(notes["a"]);
+  const string = randomKeyFromObject(notes);
+  return randomElemFromArray(notes[string]);
 }
 
 function App() {
@@ -50,16 +57,18 @@ function App() {
     if (selectedNote) {
       if (selectedNote === expectedNote) {
         console.log("good");
+        setSelectedNote(null);
         changeExpectedNote();
       } else {
         console.log("bad");
       }
     }
-  }, [selectedNote]);
+  }, [selectedNote, expectedNote]);
 
   return (
     <div className="App">
       <header className="App-header">
+        Fretboard memo
         {<div>{expectedNote}</div>}
         {selectedNote && <div>{selectedNote}</div>}
         <div className="guitar-neck">
@@ -76,22 +85,26 @@ function App() {
           </ul>
 
           <ul className="strings">
-            {Object.keys(notes).map((stringName) => (
-              <li key={`string-${stringName}`}></li>
-            ))}
+            {Object.keys(notes)
+              .reverse()
+              .map((stringName) => (
+                <li key={`string-${stringName}`}></li>
+              ))}
           </ul>
 
           <ul className="open-notes">
-            {Object.keys(notes).map((stringName) => (
-              <li
-                key={`open_note_${stringName}`}
-                onClick={() => {
-                  setSelectedNote(stringName);
-                }}
-              >
-                {showStringNames && noteFromString(stringName)}
-              </li>
-            ))}
+            {Object.keys(notes)
+              .reverse()
+              .map((stringName) => (
+                <li
+                  key={`open_note_${stringName}`}
+                  onClick={() => {
+                    setSelectedNote(noteFromString(stringName));
+                  }}
+                >
+                  {showStringNames && noteFromString(stringName)}
+                </li>
+              ))}
           </ul>
 
           <div className="notes">
@@ -187,12 +200,23 @@ function App() {
             </div>
           </div>
         </div>
-        <div>
-          <button onClick={() => setShowStringNames((show) => !show)}>
-            {showStringNames ? "show string name" : "hide string names"}
-          </button>
-        </div>
       </header>
+      <div>
+        <button
+          onClick={() => {
+            setShowStringNames((show) => !show);
+          }}
+        >
+          {showStringNames ? "hide string name" : "show string names"}
+        </button>
+        <button
+          onClick={() => {
+            setShowNotes((show) => !show);
+          }}
+        >
+          {showNotes ? "hide notes" : "show notes"}
+        </button>
+      </div>
     </div>
   );
 }
