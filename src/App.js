@@ -167,9 +167,10 @@ function App() {
                   key={`open_note_${stringName}`}
                   style={{
                     cursor: settings.allowOpenStrings ? "pointer" : "default",
+                    color: settings.allowOpenStrings ? "white" : "gray",
                   }}
                   onClick={() => {
-                    if (settings.allowOpenStrings) {
+                    if (!settings.allowOpenStrings) {
                       return;
                     }
                     setSelectedNote(notes[stringName][0]);
